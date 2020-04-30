@@ -35,8 +35,8 @@ export default {
   data() {
     return {
       loginForm: {
-        username: "",
-        password: ""
+        username: "admin",
+        password: "123456"
       },
       formRules: {
         username: [
@@ -68,7 +68,27 @@ export default {
     goLogin() {
       // 对整个表单进行校验的方法，参数为一个回调函数。该回调函数会在校验结束后被调用，并传入两个参数：是否校验成功和未通过校验的字段。若不传入回调函数，则会返回一个 promise
       this.$refs.loginFormRef.validate(valid => {
-        console.log(valid);
+        if (valid) {
+          this.$http
+            .post("/login", this.loginForm)
+            .then(result => {
+              const { data } = result;
+              if (data.meta.status == 200) {
+                this.$message({
+                  message: "登录成功",
+                  type: "success"
+                });
+              } else {
+                this.$message({
+                  message: "登录失败",
+                  type: "error"
+                });
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }
       });
     }
   }
