@@ -78,6 +78,10 @@ export default {
                   message: "登录成功",
                   type: "success"
                 });
+                window.sessionStorage.setItem("token", data.data.token);
+                setTimeout(() => {
+                  this.$router.push("/home");
+                }, 2000);
               } else {
                 this.$message({
                   message: "登录失败",
