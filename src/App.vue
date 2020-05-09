@@ -10,6 +10,7 @@ export default {
 </script>
 
 <style>
+@import url('assets/fonts/iconfont.css');
 html,
 body {
 	height: 100%;

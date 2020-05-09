@@ -12,6 +12,12 @@ const instance = axios.create({
 })
 // 设置post请求头
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+instance.interceptors.request.use(config=>{
+	config.headers.Authorization=window.sessionStorage.getItem('token')
+	//抛出结果,不然会被拦截,获取不到数据
+	return config
+})
+
 
 Vue.prototype.$http = instance
 
